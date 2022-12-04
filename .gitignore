@@ -1,0 +1,14 @@
+CP/*
+TMXL/*
+src/__pycache__
+*.pyc
+\[TMX\] IYAHO Clothing Store/
+\[TMX\] Garden village i t hink/
+\[TMX\] Jungle Temple and City Bus (CC)/
+\[TMX\] Stardew Valley Expanded/
+src/blank/example_of_EditMap.json
+src/blank/blank.png
+TMXL2CP.zip
+test.bat
+scripts/node_modules
+scripts/package*

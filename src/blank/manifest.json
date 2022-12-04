@@ -1,0 +1,10 @@
+{
+    "Name": "[[NAME]]",
+    "Author": "[[AUTHOR]]",
+    "Version": "[[VERSION]]",
+    "Description": "[[DESCRIPTION]]",
+    "UniqueID": "[[UNIQUEID]]",
+    "ContentPackFor": {
+      "UniqueID": "[[CONTENTPACKFOR]]"
+    }
+  }
