@@ -25,3 +25,7 @@ This is a tool to convert TMXLoader/TMX Map toolkit mods to CP mods.
 ## Improvements/Contributions
 
 If you have any improvements or contributions, please feel free to make a pull request or open an issue.
+
+## Known Issues
+
+1. Does not work on Windows Subsystem for Linux (WSL) likely due to file paths.
