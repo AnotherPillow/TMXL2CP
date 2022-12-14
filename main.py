@@ -8,6 +8,10 @@ ex = False
 if not os.path.exists("TMXL\\content.json"):
     os.mkdir("TMXL/")
     ex = True
+
+#check if the folder CP exists
+if not os.path.exists("CP/"):
+    os.mkdir("CP/")
     
 
 try:
