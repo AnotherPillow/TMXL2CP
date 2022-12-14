@@ -15,7 +15,7 @@ try:
     import PIL
     import bs4
     import shutil
-except ImportError as e:
+except (ImportError,ModuleNotFoundError) as e:
     print("Installing dependencies...")
     os.system("py -m pip install -r requirements.txt")
 
