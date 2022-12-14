@@ -16,7 +16,7 @@ This is a tool to convert TMXLoader/TMX Map toolkit mods to CP mods.
 ## Usage
 
 1. Download the latest release.
-2. Install the latest version of [Python 3](https://www.python.org/downloads/).
+2. Install the latest version of [Python 3](https://www.python.org/downloads/) and [Tiled](https://www.mapeditor.org/).
 3. Place your TMXL mod in `TMXL/`, so that the `content.json` is in `TMXL/content.json`.
 4. Run `main.py`, this is likely via `py main.py`, but could also be `python main.py` or `python3 main.py`.
 5. Find your converted mod in `CP/`.
