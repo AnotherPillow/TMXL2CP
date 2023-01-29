@@ -2,6 +2,13 @@ import src.conv as conv
 import src.tiled as tiled
 import json
 import os
+import sys
+
+##check if version is 3.11 or higher
+if sys.version_info[0] < 3 and sys.version_info[1] < 11:
+    print("Python version is too low. Please update to 3.11 or higher")
+    input()
+    exit()
 
 ex = False
 
@@ -19,7 +26,7 @@ try:
     import PIL
     import bs4
     import shutil
-except (ImportError,ModuleNotFoundError) as e:
+except (ImportError, ModuleNotFoundError):
     print("Installing dependencies...")
     os.system("py -m pip install -r requirements.txt")
 
