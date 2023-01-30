@@ -4,10 +4,9 @@ import json
 import os
 import sys
 
-##check if version is 3.11 or higher
-if sys.version_info[0] < 3 and sys.version_info[1] < 11:
-    print("Python version is too low. Please update to 3.11 or higher")
-    input()
+#exist if python version isn't 3.8, 3.9 or 3.10
+if sys.version_info[0] != 3 or sys.version_info[1] not in [8, 9, 10]:
+    print("Python version must be 3.8, 3.9 or 3.10")
     exit()
 
 ex = False
