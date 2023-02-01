@@ -20,15 +20,14 @@ if not os.path.exists("CP/"):
     os.mkdir("CP/")
     
 
-if sys.argv[1] != "--ignore-deps":
-    try:
-        import json5
-        import PIL
-        import bs4
-        import shutil
-    except (ImportError, ModuleNotFoundError):
-        print("Installing dependencies...")
-        os.system("py -m pip install -r requirements.txt")
+try:
+    import json5
+    import PIL
+    import bs4
+    import shutil
+except (ImportError, ModuleNotFoundError):
+    print("Installing dependencies...")
+    os.system("py -m pip install -r requirements.txt")
 
 if ex:
     print("Created TMXL folder. Please place your TMXL mod in the TMXL folder and press enter to continue.")
