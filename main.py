@@ -12,8 +12,14 @@ if sys.version_info[0] != 3 or sys.version_info[1] not in [8, 9, 10]:
 ex = False
 
 if not os.path.exists("TMXL\\content.json"):
-    os.mkdir("TMXL/")
-    ex = True
+    #check if TMXL/ exists
+    if not os.path.exists("TMXL/"):
+        os.mkdir("TMXL/")
+        ex = True
+    else:
+        print("Please place your TMXL mod in the TMXL folder so that the content.json is in TMXL/content.json")
+        input("Press enter to exit...")
+        exit()
 
 #check if the folder CP exists
 if not os.path.exists("CP/"):
@@ -27,7 +33,10 @@ try:
     import shutil
 except (ImportError, ModuleNotFoundError):
     print("Installing dependencies...")
-    os.system("py -m pip install -r requirements.txt")
+    if os.name == "nt":
+        os.system("py -m pip install -r requirements.txt")
+    else:
+        os.system("python3 -m pip install -r requirements.txt")
 
 if ex:
     print("Created TMXL folder. Please place your TMXL mod in the TMXL folder and press enter to continue.")
