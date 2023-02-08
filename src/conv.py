@@ -159,12 +159,7 @@ def main():
 
                 propertyActionTags = soup.find_all("property", {"name": "Action"})
                 for action in propertyActionTags:
-                    if action["value"].startswith("LockedDoorWarp"):
-                        print("LockedDoorWarp found")
-                        mapName = action["value"].split(" ")[3]
-                        if mapName in customMapNames:
-                            action["value"] = action["value"].replace(mapName, f'Custom_{mapName}')
-                    elif action["value"].startswith("Warp "):
+                    if action["value"].startswith("Warp ") or action["value"].startswith("LockedDoorWarp"):
                         print("Warp found")
                         mapName = action["value"].split(" ")[3]
                         if mapName in customMapNames:
