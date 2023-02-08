@@ -164,11 +164,13 @@ def main():
                         mapName = action["value"].split(" ")[3]
                         if mapName in customMapNames:
                             action["value"] = action["value"].replace(mapName, f'Custom_{mapName}')
-                    elif action["value"].startswith("Warp"):
+                    elif action["value"].startswith("Warp "):
                         print("Warp found")
                         mapName = action["value"].split(" ")[3]
                         if mapName in customMapNames:
                             action["value"] = action["value"].replace(mapName, f'Custom_{mapName}')
+                    elif action["value"].startswith("Warp"):
+                        print(f"{action['value']} found")
                     else:
                         pass
                     
