@@ -4,11 +4,6 @@ import json
 import os
 import sys
 
-#exist if python version isn't 3.8, 3.9 or 3.10
-if sys.version_info[0] != 3 or sys.version_info[1] not in [8, 9, 10]:
-    print("Python version must be 3.8, 3.9 or 3.10")
-    exit()
-
 ex = False
 
 if not os.path.exists("TMXL\\content.json"):
