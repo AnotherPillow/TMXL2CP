@@ -22,16 +22,16 @@ if not os.path.exists("CP/"):
     
 
 try:
-    import json5
-    import PIL
-    import bs4
-    import shutil
+    import json5, PIL, bs4, shutil
 except (ImportError, ModuleNotFoundError):
     print("Installing dependencies...")
     if os.name == "nt":
         os.system("py -m pip install -r requirements.txt")
     else:
         os.system("python3 -m pip install -r requirements.txt")
+
+    import json5, PIL, bs4, shutil
+    
 
 if ex:
     print("Created TMXL folder. Please place your TMXL mod in the TMXL folder and press enter to continue.")
