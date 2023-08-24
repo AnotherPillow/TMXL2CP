@@ -1,4 +1,4 @@
-import src.conv as conv
+# import src.conv as conv
 import src.tiled as tiled
 import json
 import os
@@ -31,7 +31,8 @@ except (ImportError, ModuleNotFoundError):
         os.system("python3 -m pip install -r requirements.txt")
 
     import json5, PIL, bs4, shutil
-    
+
+import src.conv as conv
 
 if ex:
     print("Created TMXL folder. Please place your TMXL mod in the TMXL folder and press enter to continue.")
