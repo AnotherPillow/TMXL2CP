@@ -18,6 +18,32 @@ customMapNames = []
 TMXLAUTHOR = TMXLManifest()["Author"]
 
 def main():
+    if 'festivalSpots' in tmxlContent:
+        for spot in tmxlContent['festivalSpots']:
+            mapName = spot['map']
+            date = mapNameToDate(mapName)
+            x, y = spot['position']
+            who = spot['name']
+
+            positionChange = {
+                "Action": "EditData",
+                "Target": f"Data/Festivals/{date}",
+                "TextOperations": [
+                    {
+                        "Operation": "Append",
+                        "Target": [
+                            "Entries",
+                            "Set-Up_additionalCharacters"
+                        ],
+                        "Value": f"{who} {x} {y} {spot['direction']}",
+                        "Delimiter": "/"
+                    }
+                ]
+            }
+
+            contentPatcher["Changes"].append(positionChange)
+            
+
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
             #check if map["addLocation"] exists or is false
@@ -107,14 +133,14 @@ def main():
     for root, dirs, files in os.walk(os.path.join(os.getcwd(), "TMXL", "assets")):
         for file in files:
             if file.endswith(".tbin"):
-                print(f'Converting {file} to TMX')
+                print(f'Converting {file} to TMX... ', end='')
                 tbinPath = os.path.join(root, file)
                     
                     
                 tmxPath = os.path.join(root, file.replace(".tbin", ".tmx"))
                 
                 tiled.tbinConv(tbinPath, tmxPath, tiled.checkTiled()[1])
-                print(f'Converting {file} to TMX... Done')
+                print(f'Done')
                 print(f'Moving {file} to CP')
                 shutil.copy(tmxPath, os.path.join(os.getcwd(), "CP", "assets"))
             elif file.endswith(".png") or file.endswith(".tsx"):

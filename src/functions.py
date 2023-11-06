@@ -7,6 +7,7 @@ def getBlankCP():
     blankContentPatcher = json.loads(open(cpPath).read())
     #print(blankContentPatcher)
     return blankContentPatcher
+
 def getTMXL():
     tmxlPath = os.path.join(os.getcwd(), "TMXL\\content.json")
     #open the file with utf-8 encoding
@@ -17,6 +18,7 @@ def getTMXL():
         tmxlContent = json5.loads(tmxlContent)
         f.close()
     return tmxlContent
+
 def blankManifest():
     manifestPath = os.path.join(os.getcwd(), "src\\blank\\manifest.json")
     with open(manifestPath, encoding='utf-8') as f:
@@ -24,6 +26,7 @@ def blankManifest():
         manifest = json5.loads(manifest)
         f.close()
     return manifest
+
 def TMXLManifest():
     manifestPath = os.path.join(os.getcwd(), "TMXL\\manifest.json")
     with open(manifestPath, encoding='utf-8') as f:
@@ -31,3 +34,15 @@ def TMXLManifest():
         manifest = json5.loads(manifest)
         f.close()
     return manifest
+
+def mapNameToDate(mapName):
+    return {
+        'Town-EggFestival': 'spring13',
+        'Forest-FlowerFestival': 'spring24',
+        'Beach-Luau': 'summer11',
+        'Beach-Jellies': 'summer28',
+        'Town-Fair': 'fall16',
+        'Town-Halloween': 'fall27',
+        'Forest-IceFestival': 'winter8',
+        'Town-Christmas': 'winter25',
+    }[mapName]
