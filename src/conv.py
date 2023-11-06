@@ -247,7 +247,7 @@ def main():
         for map in tmxlContent["mergeMaps"]:
             lastElement = map["file"].split("/")[-1]
             mapPath = f'CP/assets/{lastElement.replace(".tbin", ".tmx")}'
-            wh = tiled.getMapWidthHeight(mapPath, tiled.checkTiled()[1])
+            wh = tiled.getMapWidthHeight(mapPath)
 
             
             editMap = {

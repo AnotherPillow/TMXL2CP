@@ -1,6 +1,6 @@
-import os
-import json
-import subprocess
+import os, json
+from tmxpy import TMXpy as tmxpy
+from pathlib import Path
 
 config = json.loads(open("config.json").read())
 
@@ -48,35 +48,17 @@ def csvConv(tmxPath, tiledPath):
     command = f'tiled --evaluate "{scriptPath}" "{tmxPath}"'
     print(command)
 
-    output = os.system(command)
+    _ = os.system(command)
 
     os.chdir(cwd)
 
     os.remove(tmxPath)
     os.rename(tmxPath.replace('.tmx', '_conv.tmx'), tmxPath)
     return
-def getMapWidthHeight(tmxPath, tiledPath):
-    cwd = os.getcwd()
-
-    tmxPath = os.path.join(cwd, tmxPath)
-    scriptPath = os.path.join(cwd, "scripts", "getMapSize.js")
-
-    os.chdir(os.path.dirname(tiledPath))
-
-    command = f'tiled --evaluate "{scriptPath}" "{tmxPath}"'
-    #command = ['tiled', '--evaluate', scriptPath, tmxPath]
-
-    output = os.system(command)
-
-    txtPath = tmxPath.replace(".tmx", "_maxSize.txt")
-
-    with open(txtPath, "r") as f:
-        data = f.read()
-        f.close()
-
-    os.remove(txtPath)
-
-    os.chdir(cwd)
-
-
-    return data.split("width=")[1].split(";")[0], data.split("height=")[1].split(";")[0]
+def getMapWidthHeight(tmxPath):
+    tmx = tmxpy(
+        [], 
+        path=Path.joinpath(tmxPath)
+    )
+    
+    return tmx.tmxDimensions
