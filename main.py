@@ -1,8 +1,9 @@
 # import src.conv as conv
 import src.tiled as tiled
+from src.functions import downloadToasterMapCLI
 import json
 import os
-import sys
+import shutil
 
 ex = False
 
@@ -19,6 +20,9 @@ if not os.path.exists("TMXL\\content.json"):
 #check if the folder CP exists
 if not os.path.exists("CP/"):
     os.mkdir("CP/")
+
+if not os.path.exists("bin/"):
+    os.mkdir("bin/")
     
 
 try:
@@ -40,19 +44,14 @@ if ex:
 
 config = json.loads(open("config.json").read())
 if not config["ran_before"]:
-    print("You may need to change the path to Tiled in config.json")
-    print("You will also have to enable the tbin plugin in Tiled")
-    print("If you don't have Tiled installed, you can download it from https://www.mapeditor.org/")
+    downloadToasterMapCLI()
     config["ran_before"] = True
     with open("config.json", "w") as f:
         json.dump(config, f, indent=4)
         f.close()
 
-
-if not tiled.checkTiled():
-    print("Tiled is not installed")
-    print("----------------------")
-    print("Please install Tiled and enable the tbin plugin")
+if not os.path.exists('bin/xTile.dll'):
+    shutil.copyfile(os.path.join(config['game_folder'], 'xTile.dll'), 'bin/xTile.dll')
 
 
 conv.main()

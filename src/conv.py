@@ -7,7 +7,6 @@ from PIL import Image
 from src.functions import *
 
 import src.tiled as tiled
-print(tiled.checkTiled())
 
 contentPatcher = getBlankCP()
 newCPManifest = {}
@@ -139,7 +138,7 @@ def main():
                     
                 tmxPath = os.path.join(root, file.replace(".tbin", ".tmx"))
                 
-                tiled.tbinConv(tbinPath, tmxPath, tiled.checkTiled()[1])
+                tiled.tbinConv(tbinPath, tmxPath)
                 print(f'Done')
                 print(f'Moving {file} to CP')
                 shutil.copy(tmxPath, os.path.join(os.getcwd(), "CP", "assets"))
@@ -232,8 +231,11 @@ def main():
 
                 assetPath = os.path.join(fileFolderPath, file)
                     
-                tiled.csvConv(assetPath, tiled.checkTiled()[1])
-                print(f"Attempted to convert {file} to CSV Formatting... Unknown if successful")
+                if tiled.csvConv(assetPath):
+                    print(f"Successfully converted {file} to CSV Formatting... ")
+                else:
+                    print(f"Failed to convert {file} to CSV Formatting...")
+                
         #write the new contentPatcher file
 
     #delete the blank images

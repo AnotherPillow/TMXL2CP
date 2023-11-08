@@ -1,6 +1,7 @@
 import os
 import json
 import json5
+import requests
 
 def getBlankCP():
     cpPath = os.path.join(os.getcwd(), "src\\blank\\content.json")
@@ -46,3 +47,35 @@ def mapNameToDate(mapName):
         'Forest-IceFestival': 'winter8',
         'Town-Christmas': 'winter25',
     }[mapName]
+
+def getToasterMapCLIDownloadLink(link=True):
+    VERSION = '1.0.0'
+    if os.name == 'nt':
+        filename = 'ToasterMapCLI-win.exe'
+        if link:
+            return f'https://github.com/ToasterSDV/ToasterMapCLI/releases/download/v{VERSION}/ToasterMapCLI-win.exe'
+        else:
+            return filename
+    elif os.name == 'posix':
+        filename = 'ToasterMapCLI-osx'
+        if link:
+            return f'https://github.com/ToasterSDV/ToasterMapCLI/releases/download/v{VERSION}/ToasterMapCLI-osx'
+        else:
+            return filename
+    else:
+        filename = 'ToasterMapCLI'
+        if link:
+            return f'https://github.com/ToasterSDV/ToasterMapCLI/releases/download/v{VERSION}/ToasterMapCLI-linux'
+        else:
+            return filename
+    
+ToasterMapCLIFileName = getToasterMapCLIDownloadLink(False)
+def downloadToasterMapCLI():
+    link = getToasterMapCLIDownloadLink()
+
+    print('Downloading ToasterMapCLI...')
+    
+    download = requests.get(link)
+    open(f'./bin/{ToasterMapCLIFileName}', 'wb').write(download.content)
+
+    print('Downloaded and saved ToasterMapCLI...')
