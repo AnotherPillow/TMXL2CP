@@ -45,13 +45,28 @@ def main():
 
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
-            #check if map["addLocation"] exists or is false
             fileName = map["file"].split("/")[-1]
-            customLocations.append({
-                "Name": f'Custom_{map["name"]}',
-                "FromMapFile":f'assets/{fileName.replace(".tbin", ".tmx")}',
-            })
+            fileNameNoExt = map["file"].split("/")[-1].replace('.tbin', '').replace('.tmx', '')
             customMapNames.append(map["name"])
+
+            mapchange = {
+                "Action": "Load",
+                "Target": f"Maps/Custom_{fileNameNoExt}",
+                "FromFile": f"assets/{fileName.replace('.tbin', '.tmx')}"
+            }
+            
+            change = {
+                "DisplayName": f'Custom_{fileName}',
+                "DefaultArrivalTile": (0, 0),
+                "CreateOnLoad": {
+                    "MapPath": f'Maps/{fileNameNoExt}'
+                }
+
+            }
+            
+            contentPatcher["Changes"].append(mapchange)
+            contentPatcher["Changes"].append(change)
+            
             if "addWarps" in map:
                 warps = {
                     "Action": "EditMap",
@@ -66,9 +81,8 @@ def main():
                     warpList2.append(warp)
                 warps["addWarps"] = warpList2
 
-                contentPatcher["Changes"].append(warps)
-    if customLocations != []:
-        contentPatcher["CustomLocations"] = customLocations
+                for w in warps:
+                    contentPatcher["Changes"].append(w)
 
     if 'onlyWarps' in tmxlContent:
         for warp in tmxlContent["onlyWarps"]:
