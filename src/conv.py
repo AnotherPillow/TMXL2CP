@@ -46,20 +46,20 @@ def main():
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
             fileName = map["file"].split("/")[-1]
-            fileNameNoExt = map["file"].split("/")[-1].replace('.tbin', '').replace('.tmx', '')
-            customMapNames.append(map["name"])
+            mapName = map["name"]
+            customMapNames.append(mapName)
 
             mapchange = {
                 "Action": "Load",
-                "Target": f"Maps/Custom_{fileNameNoExt}",
+                "Target": f"Maps/Custom_{mapName}",
                 "FromFile": f"assets/{fileName.replace('.tbin', '.tmx')}"
             }
             
             change = {
-                "DisplayName": f'Custom_{fileName}',
+                "DisplayName": f'Custom_{mapName}',
                 "DefaultArrivalTile": (0, 0),
                 "CreateOnLoad": {
-                    "MapPath": f'Maps/{fileNameNoExt}'
+                    "MapPath": f'Maps/Custom_{mapName}'
                 }
 
             }
@@ -106,19 +106,27 @@ def main():
     if 'spouseRooms' in tmxlContent:
         for spouseRoom in tmxlContent["spouseRooms"]:
             
-            im_less_tired_to_name_this_var = spouseRoom["file"].split("/")[-1].replace(".tbin", ".tmx")
-
+            fileName = spouseRoom["file"].split("/")[-1].replace(".tbin", ".tmx")
+            mn = f"{TMXLAUTHOR}_{spouseRoom['name']}_ROOM"
             editdata = {
                 "Action": "EditData",
-                "Target": "Data/SpouseRooms",
-                "Entries": {
-                    spouseRoom["name"]: f"{TMXLAUTHOR}_{spouseRoom['name']}_ROOM",
+                "Target": "Data/Characters",
+                "Fields": {
+                    "SpouseRoom": {
+                        "MapAsset": mn,
+                        "MapSourceRect": {
+                            "X": 0,
+                            "Y": 0,
+                            "Width": 6,
+                            "Height": 9,
+                        }
+                    },
                 }
             }
             load = {
                 "Action": "Load",
-                "Target": f"Maps/{TMXLAUTHOR}_{spouseRoom['name']}_ROOM",
-                "FromFile": f"assets/{im_less_tired_to_name_this_var}",
+                "Target": f"Maps/{mn}",
+                "FromFile": f"assets/{fileName}",
             }
             contentPatcher["Changes"].append(editdata)
             contentPatcher["Changes"].append(load)
