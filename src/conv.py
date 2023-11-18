@@ -307,8 +307,8 @@ def main():
             except:
                 editMap["PatchMode"] = 'Overlay'
 
-            im_too_tired_to_name_this_var = map["file"].split("/")[-1]
-            editMap["FromFile"] = f'assets/{im_too_tired_to_name_this_var.replace(".tbin", ".tmx")}'
+            fname = map["file"].split("/")[-1]
+            editMap["FromFile"] = f'assets/{fname.replace(".tbin", ".tmx")}'
             
             contentPatcher["Changes"].append(editMap)
 
