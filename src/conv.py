@@ -41,7 +41,11 @@ def main():
             }
 
             contentPatcher["Changes"].append(positionChange)
-            
+    
+    if 'shops' in tmxlContent:
+        for shop in tmxlContent['shops']:
+            pass
+
 
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
@@ -111,6 +115,7 @@ def main():
             editdata = {
                 "Action": "EditData",
                 "Target": "Data/Characters",
+                "TargetField": [ spouseRoom['name'] ],
                 "Fields": {
                     "SpouseRoom": {
                         "MapAsset": mn,
