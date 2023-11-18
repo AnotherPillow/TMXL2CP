@@ -4,7 +4,7 @@ import shutil
 import json
 from PIL import Image
 
-from src.functions import *
+from src.utils import *
 
 import src.tiled as tiled
 

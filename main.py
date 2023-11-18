@@ -1,6 +1,6 @@
 # import src.conv as conv
 import src.tiled as tiled
-from src.functions import downloadToasterMapCLI
+from src.utils import downloadToasterMapCLI
 import json
 import os
 import shutil
