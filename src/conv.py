@@ -44,7 +44,48 @@ def main():
     
     if 'shops' in tmxlContent:
         for shop in tmxlContent['shops']:
-            pass
+            portraitPath = None
+
+            if 'portraits' in shop:
+                portraitFileName = f'assets/{shop["portraits"][0].split("/")[-1]}'
+                portraitPath = f"Portraits/{shop['id']}"
+
+                portraitChange = {
+                    "Action": "Load",
+                    "FromFile": portraitFileName,
+                    "Target": portraitPath,
+                }
+
+                contentPatcher["Changes"].append(portraitChange)
+            
+            change = {
+                "Action": "EditData",
+                "Target": "Data/Shops",
+                "Entries": {
+                    shop['id']: {
+                        "Items": [
+                            {
+                                "_": print(i),
+                                "Price": i['price'] if 'price' in i else i['Price'], # Thanks SVE so much for using different cases
+                                "TradeItemId": inventoryTypeToQualified(i['type']) + str(i['index']) 
+                                    if 'index' in i 
+                                    else (print(f"{i['name']} ({i['type']}) will fail due to being a custom item.") or 'This item will fail to load.'),
+                                "AvailableStock": -1 if 'stock' not in shop else shop['stock']
+                            } for i in shop['inventory']
+                        ],
+                        "Owners": [
+                            {
+                                "Name": shop['id'],
+                                "Id": shop['id'],
+                                "Portrait": portraitPath,
+                            }
+                        ]
+                    }
+
+                }
+            }
+
+            contentPatcher["Changes"].append(change)
 
 
     if 'addMaps' in tmxlContent:
@@ -115,7 +156,7 @@ def main():
             editdata = {
                 "Action": "EditData",
                 "Target": "Data/Characters",
-                "TargetField": [ spouseRoom['name'] ],
+                "TargetField": [ "Entries", spouseRoom['name'] ],
                 "Fields": {
                     "SpouseRoom": {
                         "MapAsset": mn,
@@ -277,7 +318,9 @@ def main():
             lastElement = map["file"].split("/")[-1]
             mapPath = f'CP/assets/{lastElement.replace(".tbin", ".tmx")}'
             wh = tiled.getMapWidthHeight(mapPath)
-
+            
+            if 'condition' in map:
+                print(f'[WARN] CONDITION IGNORED FOR {map["name"]} PATCH FROM {map["file"]}')
             
             editMap = {
                 "Action": "EditMap",

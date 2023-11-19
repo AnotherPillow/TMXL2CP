@@ -79,3 +79,17 @@ def downloadToasterMapCLI():
     open(f'./bin/{ToasterMapCLIFileName}', 'wb').write(download.content)
 
     print('Downloaded and saved ToasterMapCLI...')
+
+def inventoryTypeToQualified(type):
+    match type:
+        case 'Object':
+            return '(O)'
+        case 'MeleeWeapon':
+            return '(W)'
+        case 'Wallpaper':
+            return '(WP)'
+        case 'Furniture':
+            return '(F)'
+        case _:
+            return ''
+    
