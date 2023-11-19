@@ -13,6 +13,7 @@ This is a tool to convert TMXLoader/TMX Map toolkit mods to CP mods.
 * Has support for `mergeMaps`, `addMaps`, `onlyWarps` and `spouseRooms`.
 * Changes CP `PatchMode` field to be based on the TMXL `removeEmpty` field, if applicable.
 * Convert all `festivalSpots` to use `Data/festivals/[date]`.
+* Convert all shops to `Data/Shops`.
 
 ## Usage
 
