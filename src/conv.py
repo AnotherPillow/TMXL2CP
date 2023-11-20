@@ -65,7 +65,6 @@ def main():
                     shop['id']: {
                         "Items": [
                             {
-                                "_": print(i),
                                 "Price": i['price'] if 'price' in i else i['Price'], # Thanks SVE so much for using different cases
                                 "TradeItemId": inventoryTypeToQualified(i['type']) + str(i['index']) 
                                     if 'index' in i 
