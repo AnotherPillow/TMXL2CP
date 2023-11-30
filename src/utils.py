@@ -2,6 +2,7 @@ import os
 import json
 import json5
 import requests
+import hashlib
 
 def getBlankCP():
     cpPath = os.path.join(os.getcwd(), "src\\blank\\content.json")
@@ -93,3 +94,20 @@ def inventoryTypeToQualified(type):
         case _:
             return ''
     
+
+def checkXTileVersion():
+    SHA256_1_5_6 = '6845B4E62AD9C74AC7A7234EBE887454CBE9AA324D38C7D7A1522930234559BD'
+    BUF_SIZE = 1024 * 512 # 1kb * 512 (512 kb)
+
+    hash = hashlib.sha256()
+
+    with open('./bin/xTile.dll', 'rb') as f:
+        while True:
+            data = f.read(BUF_SIZE)
+            if not data:
+                break
+            hash.update(data)
+    
+    digested = hash.hexdigest().upper()
+
+    return digested == SHA256_1_5_6
