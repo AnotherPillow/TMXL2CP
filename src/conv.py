@@ -100,12 +100,17 @@ def main():
             }
             
             change = {
-                "DisplayName": f'Custom_{mapName}',
-                "DefaultArrivalTile": (0, 0),
-                "CreateOnLoad": {
-                    "MapPath": f'Maps/Custom_{mapName}'
+                "Action": "EditData",
+                "Target": "Data/Locations",
+                "Entries": {
+                    f"Custom_{mapName}": {
+                        "DisplayName": f'Custom_{mapName}',
+                        "DefaultArrivalTile": (0, 0),
+                        "CreateOnLoad": {
+                            "MapPath": f'Maps/Custom_{mapName}'
+                        }
+                    }
                 }
-
             }
             
             contentPatcher["Changes"].append(mapchange)
