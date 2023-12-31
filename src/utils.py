@@ -50,7 +50,7 @@ def mapNameToDate(mapName):
     }[mapName]
 
 def getToasterMapCLIDownloadLink(link=True):
-    VERSION = '1.0.0'
+    VERSION = '1.1.0' # 1.1.0 is built against 1.6
     if os.name == 'nt':
         filename = 'ToasterMapCLI-win.exe'
         if link:
@@ -96,7 +96,7 @@ def inventoryTypeToQualified(type):
     
 
 def checkXTileVersion():
-    SHA256_1_5_6 = '6845B4E62AD9C74AC7A7234EBE887454CBE9AA324D38C7D7A1522930234559BD'
+    SHA256_1_5_6 = '86AF1CF0B8830DD7636C5C1FB5A3637E0DAE05CC042D524AE2A81C41FECD4482'
     BUF_SIZE = 1024 * 512 # 1kb * 512 (512 kb)
 
     hash = hashlib.sha256()
