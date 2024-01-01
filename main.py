@@ -57,7 +57,7 @@ if checkXTileVersion():
     print('Correct xTile version found')
 else:
     print('Stardew Valley/xTile version mismatch!')
-    print('If you are running a version of SDV other than 1.5.6, edit the config.json to point to your 1.5.6 install.')
+    print('If you are running a version of SDV other than 1.6, edit the config.json to point to your 1.6 install.')
     input('Press enter to continue.')
 
 
