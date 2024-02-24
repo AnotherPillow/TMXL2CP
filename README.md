@@ -1,5 +1,7 @@
 # TMXL2CP
 
+## _AS OF 24/02/24, 1.6 IS REQUIRED TO RUN, 1.5.6 IS NO LONGER COMPATIBLE_
+
 ## About
 
 This is a tool to convert TMXLoader/TMX Map toolkit mods to CP mods.
