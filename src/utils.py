@@ -2,6 +2,7 @@ import os
 import json
 import json5
 import requests
+import hashlib
 
 def getBlankCP():
     cpPath = os.path.join(os.getcwd(), "src\\blank\\content.json")
@@ -49,7 +50,7 @@ def mapNameToDate(mapName):
     }[mapName]
 
 def getToasterMapCLIDownloadLink(link=True):
-    VERSION = '1.0.0'
+    VERSION = '1.1.0' # 1.1.0 is built against 1.6
     if os.name == 'nt':
         filename = 'ToasterMapCLI-win.exe'
         if link:
@@ -79,3 +80,34 @@ def downloadToasterMapCLI():
     open(f'./bin/{ToasterMapCLIFileName}', 'wb').write(download.content)
 
     print('Downloaded and saved ToasterMapCLI...')
+
+def inventoryTypeToQualified(type):
+    match type:
+        case 'Object':
+            return '(O)'
+        case 'MeleeWeapon':
+            return '(W)'
+        case 'Wallpaper':
+            return '(WP)'
+        case 'Furniture':
+            return '(F)'
+        case _:
+            return ''
+    
+
+def checkXTileVersion():
+    SHA256_1_5_6 = '86AF1CF0B8830DD7636C5C1FB5A3637E0DAE05CC042D524AE2A81C41FECD4482'
+    BUF_SIZE = 1024 * 512 # 1kb * 512 (512 kb)
+
+    hash = hashlib.sha256()
+
+    with open('./bin/xTile.dll', 'rb') as f:
+        while True:
+            data = f.read(BUF_SIZE)
+            if not data:
+                break
+            hash.update(data)
+    
+    digested = hash.hexdigest().upper()
+
+    return digested == SHA256_1_5_6

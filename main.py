@@ -1,6 +1,6 @@
 # import src.conv as conv
 import src.tiled as tiled
-from src.functions import downloadToasterMapCLI
+from src.utils import downloadToasterMapCLI, checkXTileVersion
 import json
 import os
 import shutil
@@ -52,6 +52,13 @@ if not config["ran_before"]:
 
 if not os.path.exists('bin/xTile.dll'):
     shutil.copyfile(os.path.join(config['game_folder'], 'xTile.dll'), 'bin/xTile.dll')
+
+if checkXTileVersion():
+    print('Correct xTile version found')
+else:
+    print('Stardew Valley/xTile version mismatch!')
+    print('If you are running a version of SDV other than 1.6, edit the config.json to point to your 1.6 install.')
+    input('Press enter to continue.')
 
 
 conv.main()

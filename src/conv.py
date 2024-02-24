@@ -4,7 +4,7 @@ import shutil
 import json
 from PIL import Image
 
-from src.functions import *
+from src.utils import *
 
 import src.tiled as tiled
 
@@ -41,17 +41,81 @@ def main():
             }
 
             contentPatcher["Changes"].append(positionChange)
+    
+    if 'shops' in tmxlContent:
+        for shop in tmxlContent['shops']:
+            portraitPath = None
+
+            if 'portraits' in shop:
+                portraitFileName = f'assets/{shop["portraits"][0].split("/")[-1]}'
+                portraitPath = f"Portraits/{shop['id']}"
+
+                portraitChange = {
+                    "Action": "Load",
+                    "FromFile": portraitFileName,
+                    "Target": portraitPath,
+                }
+
+                contentPatcher["Changes"].append(portraitChange)
             
+            change = {
+                "Action": "EditData",
+                "Target": "Data/Shops",
+                "Entries": {
+                    shop['id']: {
+                        "Items": [
+                            {
+                                "Price": i['price'] if 'price' in i else i['Price'], # Thanks SVE so much for using different cases
+                                "TradeItemId": inventoryTypeToQualified(i['type']) + str(i['index']) 
+                                    if 'index' in i 
+                                    else (print(f"{i['name']} ({i['type']}) will fail due to being a custom item.") or 'This item will fail to load.'),
+                                "AvailableStock": -1 if 'stock' not in shop else shop['stock']
+                            } for i in shop['inventory']
+                        ],
+                        "Owners": [
+                            {
+                                "Name": shop['id'],
+                                "Id": shop['id'],
+                                "Portrait": portraitPath,
+                            }
+                        ]
+                    }
+
+                }
+            }
+
+            contentPatcher["Changes"].append(change)
+
 
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
-            #check if map["addLocation"] exists or is false
             fileName = map["file"].split("/")[-1]
-            customLocations.append({
-                "Name": f'Custom_{map["name"]}',
-                "FromMapFile":f'assets/{fileName.replace(".tbin", ".tmx")}',
-            })
-            customMapNames.append(map["name"])
+            mapName = map["name"]
+            customMapNames.append(mapName)
+
+            mapchange = {
+                "Action": "Load",
+                "Target": f"Maps/Custom_{mapName}",
+                "FromFile": f"assets/{fileName.replace('.tbin', '.tmx')}"
+            }
+            
+            change = {
+                "Action": "EditData",
+                "Target": "Data/Locations",
+                "Entries": {
+                    f"Custom_{mapName}": {
+                        "DisplayName": f'Custom_{mapName}',
+                        "DefaultArrivalTile": (0, 0),
+                        "CreateOnLoad": {
+                            "MapPath": f'Maps/Custom_{mapName}'
+                        }
+                    }
+                }
+            }
+            
+            contentPatcher["Changes"].append(mapchange)
+            contentPatcher["Changes"].append(change)
+            
             if "addWarps" in map:
                 warps = {
                     "Action": "EditMap",
@@ -66,9 +130,8 @@ def main():
                     warpList2.append(warp)
                 warps["addWarps"] = warpList2
 
-                contentPatcher["Changes"].append(warps)
-    if customLocations != []:
-        contentPatcher["CustomLocations"] = customLocations
+                for w in warps:
+                    contentPatcher["Changes"].append(w)
 
     if 'onlyWarps' in tmxlContent:
         for warp in tmxlContent["onlyWarps"]:
@@ -92,19 +155,28 @@ def main():
     if 'spouseRooms' in tmxlContent:
         for spouseRoom in tmxlContent["spouseRooms"]:
             
-            im_less_tired_to_name_this_var = spouseRoom["file"].split("/")[-1].replace(".tbin", ".tmx")
-
+            fileName = spouseRoom["file"].split("/")[-1].replace(".tbin", ".tmx")
+            mn = f"{TMXLAUTHOR}_{spouseRoom['name']}_ROOM"
             editdata = {
                 "Action": "EditData",
-                "Target": "Data/SpouseRooms",
-                "Entries": {
-                    spouseRoom["name"]: f"{TMXLAUTHOR}_{spouseRoom['name']}_ROOM",
+                "Target": "Data/Characters",
+                "TargetField": [ "Entries", spouseRoom['name'] ],
+                "Fields": {
+                    "SpouseRoom": {
+                        "MapAsset": mn,
+                        "MapSourceRect": {
+                            "X": 0,
+                            "Y": 0,
+                            "Width": 6,
+                            "Height": 9,
+                        }
+                    },
                 }
             }
             load = {
                 "Action": "Load",
-                "Target": f"Maps/{TMXLAUTHOR}_{spouseRoom['name']}_ROOM",
-                "FromFile": f"assets/{im_less_tired_to_name_this_var}",
+                "Target": f"Maps/{mn}",
+                "FromFile": f"assets/{fileName}",
             }
             contentPatcher["Changes"].append(editdata)
             contentPatcher["Changes"].append(load)
@@ -250,7 +322,9 @@ def main():
             lastElement = map["file"].split("/")[-1]
             mapPath = f'CP/assets/{lastElement.replace(".tbin", ".tmx")}'
             wh = tiled.getMapWidthHeight(mapPath)
-
+            
+            if 'condition' in map:
+                print(f'[WARN] CONDITION IGNORED FOR {map["name"]} PATCH FROM {map["file"]}')
             
             editMap = {
                 "Action": "EditMap",
@@ -285,8 +359,8 @@ def main():
             except:
                 editMap["PatchMode"] = 'Overlay'
 
-            im_too_tired_to_name_this_var = map["file"].split("/")[-1]
-            editMap["FromFile"] = f'assets/{im_too_tired_to_name_this_var.replace(".tbin", ".tmx")}'
+            fname = map["file"].split("/")[-1]
+            editMap["FromFile"] = f'assets/{fname.replace(".tbin", ".tmx")}'
             
             contentPatcher["Changes"].append(editMap)
 

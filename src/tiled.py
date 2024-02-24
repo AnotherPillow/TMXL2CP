@@ -1,7 +1,7 @@
 import os, json
 from tmxpy import tmxpy, XMLtoCSV
 from pathlib import Path
-from .functions import ToasterMapCLIFileName
+from .utils import ToasterMapCLIFileName
 
 config = json.loads(open("config.json").read())
 
