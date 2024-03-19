@@ -1,8 +1,13 @@
+import os, sys
+
+# Needed for sdvconvertergui2 for... some reason?
+SCRIPT_DIR = (os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 # import src.conv as conv
 import src.tiled as tiled
 from src.utils import downloadToasterMapCLI, checkXTileVersion
 import json
-import os
 import shutil
 
 ex = False
