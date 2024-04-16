@@ -96,7 +96,11 @@ def inventoryTypeToQualified(type):
     
 
 def checkXTileVersion():
-    SHA256_1_6 = '287E417B18CBB086900894FFB5B767D6DC4DCD34CCF5CF88131207423AA31377'
+    SHA256_1_6_HASHES = [
+        '287E417B18CBB086900894FFB5B767D6DC4DCD34CCF5CF88131207423AA31377',
+        '540C39A70DF857C594490B160C8E3DAA49839F26908E91B1B34730E9BD44D0AB',
+        
+    ]
     BUF_SIZE = 1024 * 512 # 1kb * 512 (512 kb)
 
     hash = hashlib.sha256()
@@ -110,4 +114,4 @@ def checkXTileVersion():
     
     digested = hash.hexdigest().upper()
 
-    return digested == SHA256_1_6
+    return digested in SHA256_1_6_HASHES
