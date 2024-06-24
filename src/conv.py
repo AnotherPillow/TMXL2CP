@@ -108,7 +108,8 @@ def main():
                         "DefaultArrivalTile": (0, 0),
                         "CreateOnLoad": {
                             "MapPath": f'Maps/Custom_{mapName}'
-                        }
+                        },
+                        "FormerLocationNames": [ mapName ]
                     }
                 }
             }
