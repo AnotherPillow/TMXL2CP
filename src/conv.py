@@ -191,13 +191,13 @@ def main():
     if 'Dependencies' in newCPManifest:
         newCPManifest["Dependencies"] = [x for x in newCPManifest["Dependencies"] if x["UniqueID"] not in ['Platonymous.Toolkit', 'Platonymous.TMXLoader']]
 
-    with open("CP\\manifest.json", "w") as f:
+    with open(f"CP{os.path.sep}manifest.json", "w") as f:
         json.dump(newCPManifest, f, indent=4)
         f.close()
     
 
     if not os.path.exists(os.path.join(os.getcwd(), "CP", "assets")):
-        os.makedirs("CP\\assets\\")
+        os.makedirs("CP{os.path.sep}assets{os.path.sep}")
 
     PIL_blankimages = []
     
@@ -390,7 +390,7 @@ def main():
     
 
 
-    with open (os.path.join(os.getcwd(), "CP\\content.json"), "w") as contentPatcherFile:
+    with open (os.path.join(os.getcwd(), f"CP{os.path.sep}content.json"), "w") as contentPatcherFile:
         contentPatcherFile.write(json.dumps(contentPatcher, indent=4))
         contentPatcherFile.close()
     print("")

@@ -12,7 +12,7 @@ import shutil
 
 ex = False
 
-if not os.path.exists("TMXL\\content.json"):
+if not os.path.exists(f"TMXL{os.path.sep}content.json"):
     #check if TMXL/ exists
     if not os.path.exists("TMXL/"):
         os.mkdir("TMXL/")

@@ -5,13 +5,13 @@ import requests
 import hashlib
 
 def getBlankCP():
-    cpPath = os.path.join(os.getcwd(), "src\\blank\\content.json")
+    cpPath = os.path.join(os.getcwd(), f"src{os.path.sep}blank{os.path.sep}content.json")
     blankContentPatcher = json.loads(open(cpPath).read())
     #print(blankContentPatcher)
     return blankContentPatcher
 
 def getTMXL():
-    tmxlPath = os.path.join(os.getcwd(), "TMXL\\content.json")
+    tmxlPath = os.path.join(os.getcwd(), f"TMXL{os.path.sep}content.json")
     #open the file with utf-8 encoding
     with open(tmxlPath, encoding='utf-8') as f:
         #read the file as a string
@@ -22,7 +22,7 @@ def getTMXL():
     return tmxlContent
 
 def blankManifest():
-    manifestPath = os.path.join(os.getcwd(), "src\\blank\\manifest.json")
+    manifestPath = os.path.join(os.getcwd(), f"src{os.path.sep}blank{os.path.sep}manifest.json")
     with open(manifestPath, encoding='utf-8') as f:
         manifest = f.read()
         manifest = json5.loads(manifest)
@@ -30,7 +30,7 @@ def blankManifest():
     return manifest
 
 def TMXLManifest():
-    manifestPath = os.path.join(os.getcwd(), "TMXL\\manifest.json")
+    manifestPath = os.path.join(os.getcwd(), f"TMXL{os.path.sep}manifest.json")
     with open(manifestPath, encoding='utf-8') as f:
         manifest = f.read()
         manifest = json5.loads(manifest)
