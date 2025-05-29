@@ -86,7 +86,6 @@ def main():
 
             contentPatcher["Changes"].append(change)
 
-
     if 'addMaps' in tmxlContent:
         for map in tmxlContent["addMaps"]:
             fileName = map["file"].split("/")[-1]
