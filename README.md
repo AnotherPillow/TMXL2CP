@@ -27,7 +27,7 @@ This is a tool to convert TMXLoader/TMX Map toolkit mods to CP mods.
 6. Find your converted mod in `CP/`.
 7. Make sure to do any manual edits in other portions of the mod, such as NPC schedules, disposition data, etc.
 
-If there is an error automatically installing dependencies, you can install them manually via `pip install -r requirements.txt`. You may need to use `py -m pip` instead of `pip` depending on your Python installation.
+If there is an error automatically installing dependencies, you can install them manually via `pip install -r requirements.txt`. You may need to use `py -m pip`, `python -m pip` or `python3 -m pip` instead of `pip` depending on your Python installation.
 
 ## Improvements/Contributions
 
